@@ -1,5 +1,6 @@
 package com.victorgadelha.libray_management.services;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.victorgadelha.libray_management.models.Book;
@@ -17,5 +18,9 @@ public class BookService {
     @Transactional
     public void saveBook(@Valid Book book) {
         this.repository.save(book);
+    }
+
+    public List<Book> getAllBooks() {
+        return this.repository.findAll();
     }
 }

@@ -1,5 +1,7 @@
 package com.victorgadelha.libray_management.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,15 +27,17 @@ public class BookController {
     @Autowired
     BookService bookService;
 
-    @GetMapping("/home")
-    public String getAllBooks() {
-        return "home";
+    @GetMapping("/books")
+    public ResponseEntity<List<Book>> getAllBooks() {
+        var books = this.bookService.getAllBooks();
+
+        return ResponseEntity.ok(books);
     }
 
     @PostMapping("/books")
     public ResponseEntity<BookDTO> saveBook(@Valid @RequestBody BookDTO bookDTO) {
         var book = new Book(bookDTO);
-        bookService.saveBook(book);
+        thi.sbookService.saveBook(book);
 
         var responseDTO = new BookDTO(book.getId(), book.getIsbn(), book.getTitle(), book.getAuthor(),
                 book.getLanguages(),
