@@ -13,7 +13,6 @@ import com.victorgadelha.libray_management.models.Book;
 import com.victorgadelha.libray_management.repositories.BookRepository;
 import com.victorgadelha.libray_management.services.BookService;
 
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Controller
@@ -32,14 +31,14 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public ResponseEntity<String> saveBook(@Valid @RequestBody BookDTO bookDTO) {
-        var book = new Book();
-        book.setIsbn(bookDTO.isbn());
-        book.setTitle(bookDTO.title());
-        book.setLanguages(bookDTO.languages());
-        book.setAuthor(bookDTO.author());
-
+    public ResponseEntity<BookDTO> saveBook(@Valid @RequestBody BookDTO bookDTO) {
+        var book = new Book(bookDTO);
         bookService.saveBook(book);
-        return ResponseEntity.ok("Livro salvo com sucesso." + book);
+
+        var responseDTO = new BookDTO(book.getId(), book.getIsbn(), book.getTitle(), book.getAuthor(),
+                book.getLanguages(),
+                book.getCreatedAt());
+
+        return ResponseEntity.ok().body(responseDTO);
     }
 }

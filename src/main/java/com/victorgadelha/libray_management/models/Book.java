@@ -3,6 +3,8 @@ package com.victorgadelha.libray_management.models;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.victorgadelha.libray_management.DTO.BookDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -50,5 +52,12 @@ public class Book {
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+    }
+
+    public Book(BookDTO bookDTO) {
+        this.isbn = bookDTO.isbn();
+        this.title = bookDTO.title();
+        this.author = bookDTO.author();
+        this.languages = bookDTO.languages();
     }
 }
