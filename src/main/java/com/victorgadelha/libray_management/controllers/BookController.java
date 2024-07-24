@@ -37,7 +37,7 @@ public class BookController {
     @PostMapping("/books")
     public ResponseEntity<BookDTO> saveBook(@Valid @RequestBody BookDTO bookDTO) {
         var book = new Book(bookDTO);
-        thi.sbookService.saveBook(book);
+        this.bookService.saveBook(book);
 
         var responseDTO = new BookDTO(book.getId(), book.getIsbn(), book.getTitle(), book.getAuthor(),
                 book.getLanguages(),
