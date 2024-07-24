@@ -11,14 +11,14 @@ import com.victorgadelha.libray_management.models.Book;
 import com.victorgadelha.libray_management.repositories.BookRepository;
 
 @Service
-public class FakerData {
+public class FakeData {
     private final Faker faker;
     private List<Book> books;
 
     @Autowired
     BookRepository bookRepository;
 
-    public FakerData() {
+    public FakeData() {
         this.faker = new Faker();
         this.books = new ArrayList<>();
     }

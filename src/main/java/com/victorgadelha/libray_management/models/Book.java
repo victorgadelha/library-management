@@ -49,6 +49,9 @@ public class Book {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
@@ -59,5 +62,9 @@ public class Book {
         this.title = bookDTO.title();
         this.author = bookDTO.author();
         this.languages = bookDTO.languages();
+    }
+
+    public Book(Book book) {
+        // TODO Auto-generated constructor stub
     }
 }

@@ -5,13 +5,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.victorgadelha.libray_management.faker.FakerData;
+import com.victorgadelha.libray_management.faker.FakeData;
 
 @SpringBootApplication
 public class LibrayManagementApplication implements CommandLineRunner {
 
 	@Autowired
-	FakerData fakerData;
+	FakeData fakeData;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LibrayManagementApplication.class, args);
@@ -19,7 +19,7 @@ public class LibrayManagementApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		this.fakerData.generateFakeData();
+		this.fakeData.generateFakeData();
 	}
 
 }
