@@ -6,13 +6,13 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.victorgadelha.libray_management.DTO.BookDTO;
 import com.victorgadelha.libray_management.models.Book;
@@ -21,7 +21,7 @@ import com.victorgadelha.libray_management.services.BookService;
 
 import jakarta.validation.Valid;
 
-@Controller
+@RestController
 @RequestMapping
 public class BookController {
 
@@ -35,7 +35,14 @@ public class BookController {
     public ResponseEntity<List<Book>> getAllBooks() {
         var books = this.bookService.getAllBooks();
 
-        return ResponseEntity.ok(books);
+        return ResponseEntity.status(HttpStatus.OK).body(books);
+    }
+
+    @GetMapping("/books/{id}")
+    public ResponseEntity<Book> getBookById(@PathVariable UUID id) {
+        var book = this.bookService.getBookById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(book);
     }
 
     @PostMapping("/books")

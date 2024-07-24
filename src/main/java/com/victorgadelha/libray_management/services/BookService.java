@@ -44,4 +44,15 @@ public class BookService {
             return this.repository.save(newBook);
         }
     }
+
+    public Book getBookById(UUID id) {
+        var foundBoook = this.repository.findById(id);
+
+        if (!foundBoook.isPresent()) {
+            throw new EntityNotFoundException("Livro não encontrado.");
+        } else {
+            var book = foundBoook.get();
+            return book;
+        }
+    }
 }
