@@ -1,5 +1,6 @@
 package com.victorgadelha.libray_management.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,6 +41,7 @@ public class BookService {
             newBook.setAuthor(bookDTO.author());
             newBook.setIsbn(bookDTO.isbn());
             newBook.setLanguages(bookDTO.languages());
+            newBook.setUpdatedAt(LocalDateTime.now());
 
             return this.repository.save(newBook);
         }

@@ -6,7 +6,6 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.victorgadelha.libray_management.DTO.BookDTO;
+import com.victorgadelha.libray_management.DTO.EditBookResponseDTO;
+import com.victorgadelha.libray_management.DTO.PostBookResponseDTO;
 import com.victorgadelha.libray_management.models.Book;
 import com.victorgadelha.libray_management.repositories.BookRepository;
 import com.victorgadelha.libray_management.services.BookService;
@@ -47,11 +48,11 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public ResponseEntity<BookDTO> saveBook(@Valid @RequestBody BookDTO bookDTO) {
+    public ResponseEntity<PostBookResponseDTO> saveBook(@Valid @RequestBody BookDTO bookDTO) {
         var book = new Book(bookDTO);
         this.bookService.saveBook(book);
 
-        var responseDTO = new BookDTO(book.getId(), book.getIsbn(), book.getTitle(), book.getAuthor(),
+        var responseDTO = new PostBookResponseDTO(book.getId(), book.getIsbn(), book.getTitle(), book.getAuthor(),
                 book.getLanguages(),
                 book.getCreatedAt());
 
@@ -59,13 +60,13 @@ public class BookController {
     }
 
     @PutMapping("/books/{id}")
-    public ResponseEntity<BookDTO> updateBook(@PathVariable UUID id, @Valid @RequestBody BookDTO bookDTO) {
+    public ResponseEntity<EditBookResponseDTO> updateBook(@PathVariable UUID id, @Valid @RequestBody BookDTO bookDTO) {
 
         Book updatedBook = this.bookService.updateBook(bookDTO, id);
 
-        var responseDTO = new BookDTO(updatedBook.getId(), updatedBook.getIsbn(), updatedBook.getTitle(),
+        var responseDTO = new EditBookResponseDTO(updatedBook.getId(), updatedBook.getIsbn(), updatedBook.getTitle(),
                 updatedBook.getAuthor(),
-                updatedBook.getLanguages(), updatedBook.getCreatedAt());
+                updatedBook.getLanguages(), updatedBook.getUpdatedAt());
 
         return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
     }
