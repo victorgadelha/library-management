@@ -5,5 +5,4 @@ import java.util.UUID;
 
 public record BookDTO(UUID id, String isbn, String title, String author, String languages, LocalDateTime createdAt,
         LocalDateTime updatedAt) {
-
 }
