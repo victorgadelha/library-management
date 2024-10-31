@@ -25,8 +25,16 @@ public class BookService {
     }
 
     @Transactional
-    public void saveBook(Book book) {
+    public Book saveBook(BookDTO bookDTO) {
+        var book = new Book();
+        book.setTitle(bookDTO.title());
+        book.setAuthor(bookDTO.author());
+        book.setIsbn(bookDTO.isbn());
+        book.setLanguages(bookDTO.languages());
+
         this.repository.save(book);
+
+        return book;
     }
 
     @Transactional
