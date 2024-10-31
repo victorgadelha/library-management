@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import com.github.javafaker.Faker;
@@ -11,9 +12,9 @@ import com.victorgadelha.libray_management.models.Book;
 import com.victorgadelha.libray_management.repositories.BookRepository;
 
 @Service
-public class FakeData {
+public class FakeData implements CommandLineRunner {
     private final Faker faker;
-    private List<Book> books;
+    private final List<Book> books;
 
     @Autowired
     BookRepository bookRepository;
@@ -35,5 +36,10 @@ public class FakeData {
             this.books.add(book);
         }
         this.bookRepository.saveAll(books);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        generateFakeData();
     }
 }
