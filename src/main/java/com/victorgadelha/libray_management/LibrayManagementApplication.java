@@ -9,9 +9,6 @@ import com.victorgadelha.libray_management.faker.FakeData;
 @SpringBootApplication
 public class LibrayManagementApplication {
 
-	@Autowired
-	FakeData fakeData;
-
 	public static void main(String[] args) {
 		SpringApplication.run(LibrayManagementApplication.class, args);
 	}
