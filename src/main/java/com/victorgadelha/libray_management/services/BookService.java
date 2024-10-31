@@ -32,9 +32,9 @@ public class BookService {
         book.setIsbn(bookDTO.isbn());
         book.setLanguages(bookDTO.languages());
 
-        this.repository.save(book);
+        return this.repository.save(book);
 
-        return book;
+       // return book;
     }
 
     @Transactional
