@@ -56,15 +56,4 @@ public class Book {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
-
-    public Book(BookDTO bookDTO) {
-        this.isbn = bookDTO.isbn();
-        this.title = bookDTO.title();
-        this.author = bookDTO.author();
-        this.languages = bookDTO.languages();
-    }
-
-    public Book(Book book) {
-        // TODO Auto-generated constructor stub
-    }
 }
