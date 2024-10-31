@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.victorgadelha.libray_management.DTO.BookDTO;
@@ -20,8 +22,8 @@ public class BookService {
     @Autowired
     BookRepository repository;
 
-    public List<Book> getAllBooks() {
-        return this.repository.findAll();
+    public Page<Book> getAllBooks(Pageable pageable) {
+        return this.repository.findAll(pageable);
     }
 
     @Transactional
