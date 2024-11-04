@@ -1,4 +1,4 @@
-package com.victorgadelha.libray_management.controllers;
+package com.victorgadelha.libray_management.web.controllers;
 
 import java.util.UUID;
 
@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.victorgadelha.libray_management.DTO.BookDTO;
-import com.victorgadelha.libray_management.DTO.EditBookResponseDTO;
-import com.victorgadelha.libray_management.DTO.PostBookResponseDTO;
-import com.victorgadelha.libray_management.models.Book;
+import com.victorgadelha.libray_management.domain.entities.Book;
 import com.victorgadelha.libray_management.repositories.BookRepository;
 import com.victorgadelha.libray_management.services.BookService;
+import com.victorgadelha.libray_management.web.dto.BookDTO;
+import com.victorgadelha.libray_management.web.dto.EditBookResponseDTO;
+import com.victorgadelha.libray_management.web.dto.PostBookResponseDTO;
 
 import jakarta.validation.Valid;
 

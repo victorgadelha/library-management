@@ -1,4 +1,4 @@
-package com.victorgadelha.libray_management.models;
+package com.victorgadelha.libray_management.domain.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;

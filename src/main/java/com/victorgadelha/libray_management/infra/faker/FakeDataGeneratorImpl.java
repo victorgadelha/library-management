@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.github.javafaker.Faker;
-import com.victorgadelha.libray_management.models.Book;
+import com.victorgadelha.libray_management.domain.entities.Book;
 
 @Service
 public class FakeDataGeneratorImpl implements FakeDataGenerator {
