@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.victorgadelha.libray_management.domain.entities.Book;
 import com.victorgadelha.libray_management.repositories.BookRepository;
 import com.victorgadelha.libray_management.services.BookService;
-import com.victorgadelha.libray_management.web.dto.BookDTO;
-import com.victorgadelha.libray_management.web.dto.EditBookResponseDTO;
-import com.victorgadelha.libray_management.web.dto.PostBookResponseDTO;
+import com.victorgadelha.libray_management.web.dtos.book.BookDTO;
+import com.victorgadelha.libray_management.web.dtos.book.EditBookResponseDTO;
+import com.victorgadelha.libray_management.web.dtos.book.PostBookResponseDTO;
 
 import jakarta.validation.Valid;
 

@@ -1,4 +1,4 @@
-package com.victorgadelha.libray_management.web.dto;
+package com.victorgadelha.libray_management.web.dtos.book;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

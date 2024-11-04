@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.victorgadelha.libray_management.domain.entities.Book;
 import com.victorgadelha.libray_management.repositories.BookRepository;
-import com.victorgadelha.libray_management.web.dto.BookDTO;
+import com.victorgadelha.libray_management.web.dtos.book.BookDTO;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
