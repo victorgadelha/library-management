@@ -11,7 +11,7 @@ import com.victorgadelha.libray_management.web.dtos.book.BookDTO;
 
 public interface BookRepository {
     public Page<Book> getAllBooks(Pageable pageable);
-    public Book saveBook(BookDTO bookDTO);
+    public Book save(Book book);
     public Book updateBook(BookDTO bookDTO, UUID id);
     public Book getBookById(UUID id);
     public void deleteBookByID(UUID id);

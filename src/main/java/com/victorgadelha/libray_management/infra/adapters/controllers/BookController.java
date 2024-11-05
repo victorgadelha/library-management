@@ -23,7 +23,7 @@ import com.victorgadelha.libray_management.infra.adapters.gateway.repositories.b
 import com.victorgadelha.libray_management.infra.adapters.gateway.repositories.book.JpaBookRepositoryAdapter;
 import com.victorgadelha.libray_management.web.dtos.book.BookDTO;
 import com.victorgadelha.libray_management.web.dtos.book.EditBookResponseDTO;
-import com.victorgadelha.libray_management.web.dtos.book.PostBookResponseDTO;
+import com.victorgadelha.libray_management.web.dtos.book.BookResponseDTO;
 
 import jakarta.validation.Valid;
 
@@ -54,12 +54,12 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public ResponseEntity<PostBookResponseDTO> saveBook(@Valid @RequestBody BookDTO bookDTO) {
-        var book = this.bookService.saveBook(bookDTO);
+    public ResponseEntity<BookResponseDTO> saveBook(@Valid @RequestBody BookDTO bookDTO) {
+        var book = this.bookService.save(bookDTO);
 
-        var responseDTO = new PostBookResponseDTO(book.getId(), book.getIsbn(), book.getTitle(), book.getAuthor(),
+        var responseDTO = new BookResponseDTO(book.getId(), book.getIsbn(), book.getTitle(), book.getAuthor(),
                 book.getLanguages(),
-                book.getCreatedAt());
+                book.getCreatedAt(), book.getUpdatedAt());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }

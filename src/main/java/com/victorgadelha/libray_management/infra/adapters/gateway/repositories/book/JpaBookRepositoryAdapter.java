@@ -3,7 +3,6 @@ package com.victorgadelha.libray_management.infra.adapters.gateway.repositories.
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -18,40 +17,25 @@ import jakarta.transaction.Transactional;
 @Component
 public class JpaBookRepositoryAdapter implements BookRepository {
 
-    @Autowired
-    JpaBookRepository repository;
+    private final JpaBookRepository repository;
+
+    public JpaBookRepositoryAdapter(JpaBookRepository repository) {
+        this.repository = repository;
+    }
 
     public Page<Book> getAllBooks(Pageable pageable) {
         return this.repository.findAll(pageable);
     }
 
     @Transactional
-    public Book saveBook(BookDTO bookDTO) {
-        var book = new Book();
-        book.setTitle(bookDTO.title());
-        book.setAuthor(bookDTO.author());
-        book.setIsbn(bookDTO.isbn());
-        book.setLanguages(bookDTO.languages());
-
+    public Book save(Book book) {
         return this.repository.save(book);
     }
 
     @Transactional
     public Book updateBook(BookDTO bookDTO, UUID id) {
-        var foundBoook = this.repository.findById(id);
-
-        if (!foundBoook.isPresent()) {
-            throw new EntityNotFoundException("Livro não encontrado.");
-        } else {
-            var newBook = foundBoook.get();
-            newBook.setTitle(bookDTO.title());
-            newBook.setAuthor(bookDTO.author());
-            newBook.setIsbn(bookDTO.isbn());
-            newBook.setLanguages(bookDTO.languages());
-            newBook.setUpdatedAt(LocalDateTime.now());
-
-            return this.repository.save(newBook);
-        }
+            return this.repository.
+        
     }
 
     public Book getBookById(UUID id) {
@@ -65,6 +49,7 @@ public class JpaBookRepositoryAdapter implements BookRepository {
         }
     }
 
+    @Transactional
     public void deleteBookByID(UUID id) {
         var foundBoook = this.repository.findById(id);
 
