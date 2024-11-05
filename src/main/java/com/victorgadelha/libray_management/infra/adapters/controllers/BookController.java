@@ -1,4 +1,4 @@
-package com.victorgadelha.libray_management.web.controllers;
+package com.victorgadelha.libray_management.infra.adapters.controllers;
 
 import java.util.UUID;
 
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.victorgadelha.libray_management.domain.entities.Book;
-import com.victorgadelha.libray_management.repositories.BookRepository;
-import com.victorgadelha.libray_management.services.BookService;
+import com.victorgadelha.libray_management.infra.adapters.gateway.repositories.book.JpaBookRepository;
+import com.victorgadelha.libray_management.infra.adapters.gateway.repositories.book.JpaBookRepositoryAdapter;
 import com.victorgadelha.libray_management.web.dtos.book.BookDTO;
 import com.victorgadelha.libray_management.web.dtos.book.EditBookResponseDTO;
 import com.victorgadelha.libray_management.web.dtos.book.PostBookResponseDTO;
@@ -32,10 +32,10 @@ import jakarta.validation.Valid;
 public class BookController {
 
     @Autowired
-    BookRepository bookRepository;
+    JpaBookRepository bookRepository;
 
     @Autowired
-    BookService bookService;
+    JpaBookRepositoryAdapter bookService;
 
     @GetMapping("/books")
     public ResponseEntity<Page<Book>> getAllBooks(@RequestParam(defaultValue = "0") int page,

@@ -1,4 +1,4 @@
-package com.victorgadelha.libray_management.repositories;
+package com.victorgadelha.libray_management.infra.adapters.gateway.repositories.book;
 
 import java.util.UUID;
 
@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 import com.victorgadelha.libray_management.domain.entities.Book;
 
 @Repository
-public interface BookRepository extends JpaRepository<Book, UUID> {
+public interface JpaBookRepository extends JpaRepository<Book, UUID> {
     Page<Book> findAll(Pageable pageable);
 }

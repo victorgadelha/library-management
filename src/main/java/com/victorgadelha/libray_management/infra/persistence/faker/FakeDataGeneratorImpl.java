@@ -1,4 +1,4 @@
-package com.victorgadelha.libray_management.infra.faker;
+package com.victorgadelha.libray_management.infra.persistence.faker;
 
 import java.util.ArrayList;
 import java.util.List;
