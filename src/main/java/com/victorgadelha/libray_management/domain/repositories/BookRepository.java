@@ -7,14 +7,15 @@ import java.util.UUID;
 import com.victorgadelha.libray_management.domain.entities.Book;
 
 public interface BookRepository {
+
     public List<Book> findAll();
+
+    public Optional<Book> findById(UUID id);
 
     public Book save(Book book);
 
     public Book update(Book book, UUID id);
 
-    public Optional<Book> getBook(UUID id);
-
-    public void delete(UUID id);
+    public void deleteById(UUID id);
 
 }

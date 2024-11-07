@@ -34,19 +34,18 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
+    public Optional<Book> findById(UUID id) {
+        return this.repository.findById(id);
+    }
+
+    @Override
     public Book update(Book book, UUID id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
     @Override
-    public Optional<Book> getBook(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBook'");
-    }
-
-    @Override
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }

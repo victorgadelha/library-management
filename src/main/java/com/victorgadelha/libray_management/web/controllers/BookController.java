@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.victorgadelha.libray_management.app.usecases.CreateBookUseCase;
 import com.victorgadelha.libray_management.app.usecases.FindAllBooksUseCase;
+import com.victorgadelha.libray_management.app.usecases.FindBookUseCase;
 import com.victorgadelha.libray_management.domain.entities.Book;
 import com.victorgadelha.libray_management.infra.adapters.gateway.repositories.book.JpaBookRepository;
 import com.victorgadelha.libray_management.infra.adapters.gateway.repositories.book.BookRepositoryImpl;
@@ -30,83 +31,94 @@ import jakarta.validation.Valid;
 @RequestMapping
 public class BookController {
 
-    @Autowired
-    JpaBookRepository bookRepository;
+        @Autowired
+        JpaBookRepository bookRepository;
 
-    @Autowired
-    BookRepositoryImpl bookService;
+        @Autowired
+        BookRepositoryImpl bookService;
 
-    @Autowired
-    CreateBookUseCase createBookUseCase;
+        @Autowired
+        CreateBookUseCase createBookUseCase;
 
-    @Autowired
-    FindAllBooksUseCase findAllBooksUseCase;
+        @Autowired
+        FindAllBooksUseCase findAllBooksUseCase;
 
-    @GetMapping("/books")
-    public ResponseEntity<List<BookDTO>> findAll() {
-        var books = this.findAllBooksUseCase.execute();
+        @Autowired
+        FindBookUseCase findBookUseCase;
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(books.stream()
-                        .map(book -> new BookDTO(
+        @GetMapping("/books")
+        public ResponseEntity<List<BookDTO>> findAll() {
+                var books = this.findAllBooksUseCase.execute();
+
+                return ResponseEntity.status(HttpStatus.OK)
+                                .body(books.stream()
+                                                .map(book -> new BookDTO(
+                                                                book.getId(),
+                                                                book.getIsbn(),
+                                                                book.getTitle(),
+                                                                book.getAuthor(),
+                                                                book.getLanguages(),
+                                                                book.getCreatedAt(),
+                                                                book.getUpdatedAt()))
+                                                .collect(Collectors.toList()));
+        }
+
+        @GetMapping("/books/{id}")
+        public ResponseEntity<BookDTO> getBookById(@PathVariable UUID id) {
+                var book = this.findBookUseCase.execute(id);
+                var bookDTO = new BookDTO(
+                                id,
+                                book.getIsbn(),
+                                book.getTitle(),
+                                book.getAuthor(),
+                                book.getLanguages(),
+                                book.getCreatedAt(),
+                                book.getUpdatedAt());
+
+                return ResponseEntity.status(HttpStatus.OK).body(bookDTO);
+        }
+
+        @PostMapping("/books")
+        public ResponseEntity<BookDTO> save(@Valid @RequestBody BookDTO body) {
+                var book = new Book();
+                book.setIsbn(body.isbn());
+                book.setTitle(body.title());
+                book.setAuthor(body.author());
+                book.setLanguages(body.languages());
+
+                this.createBookUseCase.execute(book);
+
+                var bookDTO = new BookDTO(
                                 book.getId(),
                                 book.getIsbn(),
                                 book.getTitle(),
                                 book.getAuthor(),
                                 book.getLanguages(),
                                 book.getCreatedAt(),
-                                book.getUpdatedAt()))
-                        .collect(Collectors.toList()));
-    }
+                                book.getUpdatedAt());
 
-    // @GetMapping("/books/{id}")
-    // public ResponseEntity<Book> getBookById(@PathVariable UUID id) {
-    // var book = this.bookService.getBookById(id);
+                return ResponseEntity.status(HttpStatus.CREATED).body(bookDTO);
+        }
 
-    // return ResponseEntity.status(HttpStatus.OK).body(book);
-    // }
+        // @PutMapping("/books/{id}")
+        // public ResponseEntity<EditBookResponseDTO> updateBook(@PathVariable UUID id,
+        // @Valid @RequestBody BookDTO bookDTO) {
 
-    @PostMapping("/books")
-    public ResponseEntity<BookDTO> save(@Valid @RequestBody BookDTO body) {
-        var book = new Book();
-        book.setIsbn(body.isbn());
-        book.setTitle(body.title());
-        book.setAuthor(body.author());
-        book.setLanguages(body.languages());
+        // Book updatedBook = this.bookService.updateBook(bookDTO, id);
 
-        this.createBookUseCase.execute(book);
+        // var responseDTO = new EditBookResponseDTO(updatedBook.getId(),
+        // updatedBook.getIsbn(), updatedBook.getTitle(),
+        // updatedBook.getAuthor(),
+        // updatedBook.getLanguages(), updatedBook.getUpdatedAt());
 
-        var bookDTO = new BookDTO(
-                book.getId(),
-                book.getIsbn(),
-                book.getTitle(),
-                book.getAuthor(),
-                book.getLanguages(),
-                book.getCreatedAt(),
-                book.getUpdatedAt());
+        // return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+        // }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(bookDTO);
-    }
+        // @DeleteMapping("/books/{id}")
+        // public ResponseEntity<Void> deleteBook(@PathVariable UUID id) {
+        // this.bookService.deleteBookByID(id);
 
-    // @PutMapping("/books/{id}")
-    // public ResponseEntity<EditBookResponseDTO> updateBook(@PathVariable UUID id,
-    // @Valid @RequestBody BookDTO bookDTO) {
-
-    // Book updatedBook = this.bookService.updateBook(bookDTO, id);
-
-    // var responseDTO = new EditBookResponseDTO(updatedBook.getId(),
-    // updatedBook.getIsbn(), updatedBook.getTitle(),
-    // updatedBook.getAuthor(),
-    // updatedBook.getLanguages(), updatedBook.getUpdatedAt());
-
-    // return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
-    // }
-
-    // @DeleteMapping("/books/{id}")
-    // public ResponseEntity<Void> deleteBook(@PathVariable UUID id) {
-    // this.bookService.deleteBookByID(id);
-
-    // return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    // }
+        // return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        // }
 
 }
