@@ -46,8 +46,7 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public void deleteById(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        this.repository.deleteById(id);
     }
 
     // @Transactional

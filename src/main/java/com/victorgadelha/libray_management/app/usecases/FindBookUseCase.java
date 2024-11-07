@@ -20,4 +20,5 @@ public class FindBookUseCase {
     public Book execute(UUID id) {
         return this.repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Livro não encontrado."));
+    }
 }

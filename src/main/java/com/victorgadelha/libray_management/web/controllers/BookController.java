@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.victorgadelha.libray_management.app.usecases.CreateBookUseCase;
+import com.victorgadelha.libray_management.app.usecases.DeleteBookUseCase;
 import com.victorgadelha.libray_management.app.usecases.FindAllBooksUseCase;
 import com.victorgadelha.libray_management.app.usecases.FindBookUseCase;
 import com.victorgadelha.libray_management.domain.entities.Book;
@@ -45,6 +46,9 @@ public class BookController {
 
         @Autowired
         FindBookUseCase findBookUseCase;
+
+        @Autowired
+        DeleteBookUseCase deleteBookUseCase;
 
         @GetMapping("/books")
         public ResponseEntity<List<BookDTO>> findAll() {
@@ -114,11 +118,11 @@ public class BookController {
         // return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
         // }
 
-        // @DeleteMapping("/books/{id}")
-        // public ResponseEntity<Void> deleteBook(@PathVariable UUID id) {
-        // this.bookService.deleteBookByID(id);
+        @DeleteMapping("/books/{id}")
+        public ResponseEntity<Void> deleteBook(@PathVariable UUID id) {
+                this.deleteBookUseCase.execute(id);
 
-        // return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        // }
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
 
 }
