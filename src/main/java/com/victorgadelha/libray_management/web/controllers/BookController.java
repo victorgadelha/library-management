@@ -1,11 +1,10 @@
 package com.victorgadelha.libray_management.web.controllers;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.victorgadelha.libray_management.app.usecases.CreateBookUseCase;
+import com.victorgadelha.libray_management.app.usecases.FindAllBooksUseCase;
 import com.victorgadelha.libray_management.domain.entities.Book;
 import com.victorgadelha.libray_management.infra.adapters.gateway.repositories.book.JpaBookRepository;
 import com.victorgadelha.libray_management.infra.adapters.gateway.repositories.book.BookRepositoryImpl;
@@ -39,15 +39,25 @@ public class BookController {
     @Autowired
     CreateBookUseCase createBookUseCase;
 
-    // @GetMapping("/books")
-    // public ResponseEntity<Page<Book>> getAllBooks(@RequestParam(defaultValue =
-    // "0") int page,
-    // @RequestParam(defaultValue = "10") int size) {
-    // Pageable pageable = PageRequest.of(page, size);
-    // var books = this.bookService.getAllBooks(pageable);
+    @Autowired
+    FindAllBooksUseCase findAllBooksUseCase;
 
-    // return ResponseEntity.status(HttpStatus.OK).body(books);
-    // }
+    @GetMapping("/books")
+    public ResponseEntity<List<BookDTO>> findAll() {
+        var books = this.findAllBooksUseCase.execute();
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(books.stream()
+                        .map(book -> new BookDTO(
+                                book.getId(),
+                                book.getIsbn(),
+                                book.getTitle(),
+                                book.getAuthor(),
+                                book.getLanguages(),
+                                book.getCreatedAt(),
+                                book.getUpdatedAt()))
+                        .collect(Collectors.toList()));
+    }
 
     // @GetMapping("/books/{id}")
     // public ResponseEntity<Book> getBookById(@PathVariable UUID id) {
@@ -58,13 +68,11 @@ public class BookController {
 
     @PostMapping("/books")
     public ResponseEntity<BookDTO> save(@Valid @RequestBody BookDTO body) {
-
         var book = new Book();
         book.setIsbn(body.isbn());
         book.setTitle(body.title());
         book.setAuthor(body.author());
         book.setLanguages(body.languages());
-        book.setCreatedAt(body.createdAt());
 
         this.createBookUseCase.execute(book);
 

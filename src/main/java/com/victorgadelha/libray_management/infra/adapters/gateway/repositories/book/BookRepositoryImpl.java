@@ -29,9 +29,8 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public List<Book> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+    public List<Book> findAll() {
+        return this.repository.findAll();
     }
 
     @Override

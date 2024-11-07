@@ -7,7 +7,7 @@ import java.util.UUID;
 import com.victorgadelha.libray_management.domain.entities.Book;
 
 public interface BookRepository {
-    public List<Book> getAll();
+    public List<Book> findAll();
 
     public Book save(Book book);
 
