@@ -1,4 +1,6 @@
-package com.victorgadelha.libray_management.app.usecases;
+package com.victorgadelha.libray_management.app.usecases.book;
+
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -6,15 +8,15 @@ import com.victorgadelha.libray_management.domain.entities.Book;
 import com.victorgadelha.libray_management.domain.repositories.BookRepository;
 
 @Service
-public class CreateBookUseCase {
+public class FindAllBooksUseCase {
 
     private final BookRepository repository;
 
-    public CreateBookUseCase(BookRepository repository) {
+    public FindAllBooksUseCase(BookRepository repository) {
         this.repository = repository;
     }
 
-    public Book execute(Book book) {
-        return this.repository.save(book);
+    public List<Book> execute() {
+        return this.repository.findAll();
     }
 }

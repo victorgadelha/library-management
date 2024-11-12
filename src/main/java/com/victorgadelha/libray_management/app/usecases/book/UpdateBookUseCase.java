@@ -1,4 +1,4 @@
-package com.victorgadelha.libray_management.app.usecases;
+package com.victorgadelha.libray_management.app.usecases.book;
 
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ public class UpdateBookUseCase {
     }
 
     public Book execute(Book book) {
-        return this.repository.update(book);
+        return this.repository.updateById(book);
     }
 }

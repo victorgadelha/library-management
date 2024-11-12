@@ -1,4 +1,4 @@
-package com.victorgadelha.libray_management.app.usecases;
+package com.victorgadelha.libray_management.app.usecases.book;
 
 import java.util.UUID;
 
