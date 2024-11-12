@@ -3,8 +3,12 @@ package com.victorgadelha.libray_management.domain.entities;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.victorgadelha.libray_management.domain.enums.LoanStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,12 +42,17 @@ public class Loan {
     @Column(name = "return_date")
     LocalDateTime returnDate;
 
-    String status;
+    @Enumerated(EnumType.STRING)
+    private LoanStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "loan_id", nullable = false)
+    @JoinColumn(name = "book_id", nullable = false)
     Book book;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+    
     @PrePersist
     protected void onCreate() {
         loanDate = LocalDateTime.now();
