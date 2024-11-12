@@ -14,7 +14,7 @@ public interface BookRepository {
 
     public Book save(Book book);
 
-    public Book update(Book book);
+    public Book updateById(Book book);
 
     public void deleteById(UUID id);
 
