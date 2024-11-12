@@ -39,9 +39,8 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public Book update(Book book, UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public Book update(Book book) {
+       return this.repository.save(book);
     }
 
     @Override

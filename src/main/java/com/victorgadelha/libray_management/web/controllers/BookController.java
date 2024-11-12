@@ -1,5 +1,6 @@
 package com.victorgadelha.libray_management.web.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.victorgadelha.libray_management.app.usecases.CreateBookUseCase;
@@ -22,8 +22,6 @@ import com.victorgadelha.libray_management.app.usecases.DeleteBookUseCase;
 import com.victorgadelha.libray_management.app.usecases.FindAllBooksUseCase;
 import com.victorgadelha.libray_management.app.usecases.FindBookUseCase;
 import com.victorgadelha.libray_management.domain.entities.Book;
-import com.victorgadelha.libray_management.infra.adapters.gateway.repositories.book.JpaBookRepository;
-import com.victorgadelha.libray_management.infra.adapters.gateway.repositories.book.BookRepositoryImpl;
 import com.victorgadelha.libray_management.web.dtos.BookDTO;
 
 import jakarta.validation.Valid;
@@ -31,12 +29,6 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping
 public class BookController {
-
-        @Autowired
-        JpaBookRepository bookRepository;
-
-        @Autowired
-        BookRepositoryImpl bookService;
 
         @Autowired
         CreateBookUseCase createBookUseCase;
@@ -104,19 +96,28 @@ public class BookController {
                 return ResponseEntity.status(HttpStatus.CREATED).body(bookDTO);
         }
 
-        // @PutMapping("/books/{id}")
-        // public ResponseEntity<EditBookResponseDTO> updateBook(@PathVariable UUID id,
-        // @Valid @RequestBody BookDTO bookDTO) {
+        @PutMapping("/books/{id}")
+        public ResponseEntity<BookDTO> updateBook(
+                        @PathVariable UUID id,
+                        @Valid @RequestBody BookDTO body) {
 
-        // Book updatedBook = this.bookService.updateBook(bookDTO, id);
+                Book bookToUpdate = this.findBookUseCase.execute(id);
+                bookToUpdate.setTitle(body.title());
+                bookToUpdate.setAuthor(body.author());
+                bookToUpdate.setLanguages(body.languages());
+                bookToUpdate.setUpdatedAt(LocalDateTime.now());
 
-        // var responseDTO = new EditBookResponseDTO(updatedBook.getId(),
-        // updatedBook.getIsbn(), updatedBook.getTitle(),
-        // updatedBook.getAuthor(),
-        // updatedBook.getLanguages(), updatedBook.getUpdatedAt());
+                var bookDTO = new BookDTO(
+                                bookToUpdate.getId(),
+                                bookToUpdate.getIsbn(),
+                                bookToUpdate.getTitle(),
+                                bookToUpdate.getAuthor(),
+                                bookToUpdate.getLanguages(),
+                                bookToUpdate.getCreatedAt(),
+                                bookToUpdate.getUpdatedAt());
 
-        // return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
-        // }
+                return ResponseEntity.status(HttpStatus.OK).body(bookDTO);
+        }
 
         @DeleteMapping("/books/{id}")
         public ResponseEntity<Void> deleteBook(@PathVariable UUID id) {
