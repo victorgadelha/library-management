@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.victorgadelha.libray_management.app.usecases.CreateBookUseCase;
-import com.victorgadelha.libray_management.app.usecases.DeleteBookUseCase;
-import com.victorgadelha.libray_management.app.usecases.FindAllBooksUseCase;
-import com.victorgadelha.libray_management.app.usecases.FindBookUseCase;
+import com.victorgadelha.libray_management.app.usecases.book.CreateBookUseCase;
+import com.victorgadelha.libray_management.app.usecases.book.DeleteBookUseCase;
+import com.victorgadelha.libray_management.app.usecases.book.FindAllBooksUseCase;
+import com.victorgadelha.libray_management.app.usecases.book.FindBookUseCase;
 import com.victorgadelha.libray_management.domain.entities.Book;
 import com.victorgadelha.libray_management.web.dtos.BookDTO;
 
