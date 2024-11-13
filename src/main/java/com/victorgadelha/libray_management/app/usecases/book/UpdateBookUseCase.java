@@ -15,6 +15,6 @@ public class UpdateBookUseCase {
     }
 
     public Book execute(Book book) {
-        return this.repository.update(book);
+        return this.repository.updateById(book);
     }
 }

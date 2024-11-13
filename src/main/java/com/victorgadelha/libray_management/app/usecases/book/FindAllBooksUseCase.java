@@ -9,13 +9,14 @@ import com.victorgadelha.libray_management.domain.repositories.BookRepository;
 
 @Service
 public class FindAllBooksUseCase {
-    private final BookRepository bookRepository;
 
-    public FindAllBooksUseCase(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    private final BookRepository repository;
+
+    public FindAllBooksUseCase(BookRepository repository) {
+        this.repository = repository;
     }
 
     public List<Book> execute() {
-        return this.bookRepository.findAll();
+        return this.repository.findAll();
     }
 }

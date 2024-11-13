@@ -8,7 +8,6 @@ import com.victorgadelha.libray_management.domain.repositories.BookRepository;
 
 @Service
 public class DeleteBookUseCase {
-    
     private final BookRepository repository;
 
     public DeleteBookUseCase(BookRepository repository) {
@@ -16,6 +15,6 @@ public class DeleteBookUseCase {
     }
 
     public void execute(UUID id) {
-this.repository.deleteBook(id);
+        this.repository.deleteById(id);
     }
 }
