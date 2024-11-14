@@ -3,10 +3,8 @@ package com.victorgadelha.library_management.domain.entities;
 import java.util.List;
 import java.util.UUID;
 
-import com.victorgadelha.library_management.domain.enums.UserType;
-
+import com.victorgadelha.library_management.domain.enums.RoleValue;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -42,7 +40,7 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private UserType type;
+    private RoleValue role;
 
     @OneToMany(mappedBy = "user")
     private List<Loan> loans;
