@@ -8,19 +8,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.victorgadelha.library_management.app.usecases.user.CreateUserUseCase;
 import com.victorgadelha.library_management.domain.entities.User;
-import com.victorgadelha.library_management.infra.adapters.gateway.repositories.user.JpaUserRepository;
+import com.victorgadelha.library_management.web.dtos.CreateUserResponseDTO;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    JpaUserRepository jpaUserRepository;
+    CreateUserUseCase createUserUseCase;
+
+    public UserController(CreateUserUseCase createUserUseCase) {
+        this.createUserUseCase = createUserUseCase;
+    }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        this.jpaUserRepository.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    public ResponseEntity<CreateUserResponseDTO> createUser(@RequestBody User user) {
+        var newUser = this.createUserUseCase.execute(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 }
