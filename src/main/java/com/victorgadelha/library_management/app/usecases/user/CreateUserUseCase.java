@@ -26,9 +26,9 @@ public class CreateUserUseCase {
 
         this.userRepository.save(newUser);
         var userDTO = new CreateUserResponseDTO(
-                user.getId(),
-                user.getName(),
-                user.getEmail(),
+            newUser.getId(),
+            newUser.getName(),
+            newUser.getEmail(),
                 UserType.BASIC);
 
         return userDTO;
