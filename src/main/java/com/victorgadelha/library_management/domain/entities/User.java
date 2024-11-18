@@ -1,9 +1,12 @@
 package com.victorgadelha.library_management.domain.entities;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import com.victorgadelha.library_management.domain.enums.RoleValue;
+import com.victorgadelha.library_management.domain.enums.UserType;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -30,7 +33,7 @@ public class User {
     private String name;
 
     @NotBlank(message = "O e-mail é obrigatório.")
-    //@Email(message = "O e-mail deve ser válido.")
+    // @Email(message = "O e-mail deve ser válido.")
     @Column(unique = true)
     private String email;
 
@@ -40,12 +43,28 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private RoleValue role;
+    private UserType type;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "user")
     private List<Loan> loans;
 
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations;
-}
 
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+}
