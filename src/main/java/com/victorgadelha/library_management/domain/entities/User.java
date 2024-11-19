@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import com.victorgadelha.library_management.domain.enums.RoleValue;
 import com.victorgadelha.library_management.domain.enums.UserType;
 
 import jakarta.persistence.*;
