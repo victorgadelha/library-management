@@ -1,36 +1,38 @@
 package com.victorgadelha.library_management.app.usecases.user;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.victorgadelha.library_management.domain.entities.User;
 import com.victorgadelha.library_management.domain.enums.UserType;
 import com.victorgadelha.library_management.domain.repositories.UserRepository;
-import com.victorgadelha.library_management.web.dtos.CreateUserResponseDTO;
+import com.victorgadelha.library_management.infra.mappers.UserMapper;
+import com.victorgadelha.library_management.web.dtos.user.CreateUserRequestDTO;
+import com.victorgadelha.library_management.web.dtos.user.CreateUserResponseDTO;
 
 @Service
 public class CreateUserUseCase {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public CreateUserUseCase(UserRepository userRepository) {
+    public CreateUserUseCase(
+            UserRepository userRepository,
+            UserMapper userMapper,
+            BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public CreateUserResponseDTO execute(User user) {
+    public CreateUserResponseDTO execute(CreateUserRequestDTO userDTO) {
+        var user = userMapper.toEntity(userDTO);
 
-        var newUser = new User();
-        newUser.setName(user.getName());
-        newUser.setEmail(user.getEmail());
-        newUser.setPassword(user.getPassword());
-        newUser.setType(UserType.BASIC);
+        user.setType(UserType.BASIC);
+        user.setPassword(bCryptPasswordEncoder.encode(userDTO.password()));
+        this.userRepository.save(user);
+        System.out.println(user);
 
-        this.userRepository.save(newUser);
-        var userDTO = new CreateUserResponseDTO(
-            newUser.getId(),
-            newUser.getName(),
-            newUser.getEmail(),
-                UserType.BASIC);
-
-        return userDTO;
+        return userMapper.toCreateUserResponseDTO(user);
     }
 }
