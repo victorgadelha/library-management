@@ -20,5 +20,6 @@ public class FakeData implements CommandLineRunner {
     public void run(String... args) throws Exception {
         var books = this.fakeDataGenerator.generateFakeBooks(100);
         this.bookRepository.saveAll(books);
+        this.fakeDataGenerator.generateFakeAdmin();
     }
 }
