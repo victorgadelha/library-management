@@ -49,7 +49,7 @@ public class FakeDataGeneratorImpl implements FakeDataGenerator {
         var user = new User();
         user.setName(faker.name().fullName());
         user.setEmail("admin@email.com");
-        user.setPassword(bCryptPasswordEncoder.encode("123456"));
+        user.setPassword(bCryptPasswordEncoder.encode("Senha@123"));
         user.setRole(Role.ADMIN);
 
         return this.userRepository.save(user);
