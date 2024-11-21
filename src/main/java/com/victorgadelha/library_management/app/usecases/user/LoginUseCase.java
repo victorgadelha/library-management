@@ -13,7 +13,9 @@ public class LoginUseCase {
     private final JWTService jwtService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public LoginUseCase(FindUserByEmailUseCase findUserByEmailUseCase, JWTService jwtService,
+    public LoginUseCase(
+            FindUserByEmailUseCase findUserByEmailUseCase,
+            JWTService jwtService,
             BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.findUserByEmailUseCase = findUserByEmailUseCase;
         this.jwtService = jwtService;
