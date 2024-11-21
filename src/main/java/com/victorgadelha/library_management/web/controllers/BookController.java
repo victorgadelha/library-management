@@ -49,6 +49,8 @@ public class BookController {
                 this.deleteBookUseCase = deleteBookUseCase;
         }
 
+       
+        @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_BASIC')")
         @GetMapping("/books")
         public ResponseEntity<List<BookDTO>> findAll() {
                 var books = this.findAllBooksUseCase.execute();
@@ -66,6 +68,7 @@ public class BookController {
                                                 .collect(Collectors.toList()));
         }
 
+        @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_BASIC')")
         @GetMapping("/books/{id}")
         public ResponseEntity<BookDTO> getBookById(@PathVariable UUID id) {
                 var book = this.findBookUseCase.execute(id);
@@ -81,6 +84,8 @@ public class BookController {
                 return ResponseEntity.status(HttpStatus.OK).body(bookDTO);
         }
 
+       
+        @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
         @PostMapping("/books")
         public ResponseEntity<BookDTO> save(@Valid @RequestBody BookDTO body) {
                 var book = new Book();
@@ -103,6 +108,8 @@ public class BookController {
                 return ResponseEntity.status(HttpStatus.CREATED).body(bookDTO);
         }
 
+       
+        @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
         @PutMapping("/books/{id}")
         public ResponseEntity<BookDTO> updateBook(
                         @PathVariable UUID id,
@@ -126,6 +133,8 @@ public class BookController {
                 return ResponseEntity.status(HttpStatus.OK).body(bookDTO);
         }
 
+       
+        @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
         @DeleteMapping("/books/{id}")
         public ResponseEntity<Void> deleteBook(@PathVariable UUID id) {
                 this.deleteBookUseCase.execute(id);
