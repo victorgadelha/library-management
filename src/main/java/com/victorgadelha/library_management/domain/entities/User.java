@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import com.victorgadelha.library_management.domain.enums.UserType;
+import com.victorgadelha.library_management.domain.enums.Role;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -42,7 +42,7 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private UserType type;
+    private Role role;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
