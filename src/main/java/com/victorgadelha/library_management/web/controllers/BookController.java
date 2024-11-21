@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,17 +30,24 @@ import jakarta.validation.Valid;
 @RequestMapping
 public class BookController {
 
-        @Autowired
-        CreateBookUseCase createBookUseCase;
+        private final CreateBookUseCase createBookUseCase;
 
-        @Autowired
-        FindAllBooksUseCase findAllBooksUseCase;
+        private final FindAllBooksUseCase findAllBooksUseCase;
 
-        @Autowired
-        FindBookUseCase findBookUseCase;
+        private final FindBookUseCase findBookUseCase;
 
-        @Autowired
-        DeleteBookUseCase deleteBookUseCase;
+        private final DeleteBookUseCase deleteBookUseCase;
+
+        public BookController(
+                        CreateBookUseCase createBookUseCase,
+                        FindAllBooksUseCase findAllBooksUseCase,
+                        FindBookUseCase findBookUseCase,
+                        DeleteBookUseCase deleteBookUseCase) {
+                this.createBookUseCase = createBookUseCase;
+                this.findAllBooksUseCase = findAllBooksUseCase;
+                this.findBookUseCase = findBookUseCase;
+                this.deleteBookUseCase = deleteBookUseCase;
+        }
 
         @GetMapping("/books")
         public ResponseEntity<List<BookDTO>> findAll() {
