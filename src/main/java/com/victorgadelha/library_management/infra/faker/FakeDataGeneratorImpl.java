@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.javafaker.Faker;
 import com.victorgadelha.library_management.domain.entities.Book;
@@ -28,6 +29,7 @@ public class FakeDataGeneratorImpl implements FakeDataGenerator {
     }
 
     @Override
+    @Transactional
     public List<Book> generateFakeBooks(int quantity) {
         for (int i = 0; i < quantity; i++) {
             var book = new Book();
@@ -44,6 +46,7 @@ public class FakeDataGeneratorImpl implements FakeDataGenerator {
     }
 
     @Override
+    @Transactional
     public User generateFakeAdmin() {
 
         var user = new User();
