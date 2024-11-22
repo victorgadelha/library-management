@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.victorgadelha.library_management.app.usecases.book.CreateBookUseCase;
-import com.victorgadelha.library_management.app.usecases.book.DeleteBookUseCase;
+import com.victorgadelha.library_management.app.usecases.book.DeleteBookByIdUseCase;
 import com.victorgadelha.library_management.app.usecases.book.FindAllBooksUseCase;
 import com.victorgadelha.library_management.app.usecases.book.FindBookByIdUseCase;
 import com.victorgadelha.library_management.domain.entities.Book;
-import com.victorgadelha.library_management.web.dtos.BookDTO;
+import com.victorgadelha.library_management.web.dtos.book.BookDTO;
 
 import jakarta.validation.Valid;
 
@@ -33,13 +33,13 @@ public class BookController {
         private final CreateBookUseCase createBookUseCase;
         private final FindAllBooksUseCase findAllBooksUseCase;
         private final FindBookByIdUseCase findBookUseCase;
-        private final DeleteBookUseCase deleteBookUseCase;
+        private final DeleteBookByIdUseCase deleteBookUseCase;
 
         public BookController(
                         CreateBookUseCase createBookUseCase,
                         FindAllBooksUseCase findAllBooksUseCase,
                         FindBookByIdUseCase findBookUseCase,
-                        DeleteBookUseCase deleteBookUseCase) {
+                        DeleteBookByIdUseCase deleteBookUseCase) {
                 this.createBookUseCase = createBookUseCase;
                 this.findAllBooksUseCase = findAllBooksUseCase;
                 this.findBookUseCase = findBookUseCase;
