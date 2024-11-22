@@ -4,20 +4,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.victorgadelha.library_management.domain.entities.Book;
 import com.victorgadelha.library_management.domain.repositories.BookRepository;
-import jakarta.transaction.Transactional;
 
 @Repository
 public class BookRepositoryImpl implements BookRepository {
 
-    @Autowired
-    JpaBookRepository repository;
+    private final JpaBookRepository repository;
 
-    @Transactional
+    public BookRepositoryImpl(JpaBookRepository repository) {
+        this.repository = repository;
+    }
+
     public Book save(Book book) {
         return this.repository.save(book);
     }
@@ -33,13 +33,11 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    @Transactional
     public Book updateById(Book book) {
         return this.repository.save(book);
     }
 
     @Override
-    @Transactional
     public void deleteById(UUID id) {
         this.repository.deleteById(id);
     }
