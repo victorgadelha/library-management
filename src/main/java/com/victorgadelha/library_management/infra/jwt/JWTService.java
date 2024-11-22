@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
 import com.victorgadelha.library_management.app.usecases.user.FindUserByEmailUseCase;
-import com.victorgadelha.library_management.web.dtos.jwt.JWTResponseDTO;
+import com.victorgadelha.library_management.web.dtos.jwt.JWTLoginResponseDTO;
 
 @Service
 public class JWTService {
@@ -19,7 +19,7 @@ public class JWTService {
         this.findUserByEmailUseCase = findUserByEmailUseCase;
     }
 
-    public JWTResponseDTO generateToken(String email) {
+    public JWTLoginResponseDTO generateToken(String email) {
         var now = Instant.now();
         var expiresIn = 300L;
 
@@ -36,6 +36,6 @@ public class JWTService {
                 .claim("scope", scope)
                 .build();
 
-        return new JWTResponseDTO(jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue(), expiresIn);
+        return new JWTLoginResponseDTO(jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue(), expiresIn);
     }
 }

@@ -6,12 +6,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.victorgadelha.library_management.app.usecases.user.LoginUseCase;
-import com.victorgadelha.library_management.web.dtos.jwt.JWTResponseDTO;
-import com.victorgadelha.library_management.web.dtos.jwt.LoginRequestDTO;
+import com.victorgadelha.library_management.app.usecases.auth.LoginUseCase;
+import com.victorgadelha.library_management.web.dtos.jwt.JWTLoginResponseDTO;
+import com.victorgadelha.library_management.web.dtos.jwt.JWTRequestLoginDTO;
 
 @RestController
 public class JWTController {
+
     private final LoginUseCase loginUseCase;
 
     public JWTController(LoginUseCase loginUseCase) {
@@ -19,7 +20,7 @@ public class JWTController {
     }
 
     @PostMapping("users/sign-in")
-    public ResponseEntity<JWTResponseDTO> login(@RequestBody LoginRequestDTO userDTO) {
+    public ResponseEntity<JWTLoginResponseDTO> login(@RequestBody JWTRequestLoginDTO userDTO) {
 
         var JWT = this.loginUseCase.execute(userDTO.email(), userDTO.password());
         return ResponseEntity.status(HttpStatus.OK).body(JWT);

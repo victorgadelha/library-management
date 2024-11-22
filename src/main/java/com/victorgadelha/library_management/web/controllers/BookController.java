@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.victorgadelha.library_management.app.usecases.book.CreateBookUseCase;
 import com.victorgadelha.library_management.app.usecases.book.DeleteBookUseCase;
 import com.victorgadelha.library_management.app.usecases.book.FindAllBooksUseCase;
-import com.victorgadelha.library_management.app.usecases.book.FindBookUseCase;
+import com.victorgadelha.library_management.app.usecases.book.FindBookByIdUseCase;
 import com.victorgadelha.library_management.domain.entities.Book;
 import com.victorgadelha.library_management.web.dtos.BookDTO;
 
@@ -31,17 +31,14 @@ import jakarta.validation.Valid;
 public class BookController {
 
         private final CreateBookUseCase createBookUseCase;
-
         private final FindAllBooksUseCase findAllBooksUseCase;
-
-        private final FindBookUseCase findBookUseCase;
-
+        private final FindBookByIdUseCase findBookUseCase;
         private final DeleteBookUseCase deleteBookUseCase;
 
         public BookController(
                         CreateBookUseCase createBookUseCase,
                         FindAllBooksUseCase findAllBooksUseCase,
-                        FindBookUseCase findBookUseCase,
+                        FindBookByIdUseCase findBookUseCase,
                         DeleteBookUseCase deleteBookUseCase) {
                 this.createBookUseCase = createBookUseCase;
                 this.findAllBooksUseCase = findAllBooksUseCase;
@@ -49,7 +46,6 @@ public class BookController {
                 this.deleteBookUseCase = deleteBookUseCase;
         }
 
-       
         @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_BASIC')")
         @GetMapping("/books")
         public ResponseEntity<List<BookDTO>> findAll() {
@@ -84,7 +80,6 @@ public class BookController {
                 return ResponseEntity.status(HttpStatus.OK).body(bookDTO);
         }
 
-       
         @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
         @PostMapping("/books")
         public ResponseEntity<BookDTO> save(@Valid @RequestBody BookDTO body) {
@@ -108,7 +103,6 @@ public class BookController {
                 return ResponseEntity.status(HttpStatus.CREATED).body(bookDTO);
         }
 
-       
         @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
         @PutMapping("/books/{id}")
         public ResponseEntity<BookDTO> updateBook(
@@ -133,7 +127,6 @@ public class BookController {
                 return ResponseEntity.status(HttpStatus.OK).body(bookDTO);
         }
 
-       
         @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
         @DeleteMapping("/books/{id}")
         public ResponseEntity<Void> deleteBook(@PathVariable UUID id) {
