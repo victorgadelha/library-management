@@ -1,4 +1,4 @@
-package com.victorgadelha.library_management.infra.repositories.book;
+package com.victorgadelha.library_management.infra.repositories;
 
 import java.util.UUID;
 

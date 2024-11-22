@@ -1,4 +1,4 @@
-package com.victorgadelha.library_management.infra.repositories.user;
+package com.victorgadelha.library_management.infra.repositories;
 
 import java.util.Optional;
 import java.util.UUID;

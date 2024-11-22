@@ -1,4 +1,4 @@
-package com.victorgadelha.library_management.infra.repositories.user;
+package com.victorgadelha.library_management.infra.persistence;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.victorgadelha.library_management.domain.entities.User;
 import com.victorgadelha.library_management.domain.repositories.UserRepository;
+import com.victorgadelha.library_management.infra.repositories.JpaUserRepository;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
