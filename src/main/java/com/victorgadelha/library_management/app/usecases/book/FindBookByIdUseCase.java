@@ -22,6 +22,6 @@ public class FindBookByIdUseCase {
     @Transactional(readOnly = true)
     public Book execute(UUID id) {
         return this.repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Livro não encontrado."));
+                .orElseThrow(() -> new EntityNotFoundException("Book not found."));
     }
 }
