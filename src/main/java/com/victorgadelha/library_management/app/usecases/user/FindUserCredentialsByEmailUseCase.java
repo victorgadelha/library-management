@@ -14,7 +14,6 @@ public class FindUserCredentialsByEmailUseCase {
 
     public FindUserCredentialsByEmailUseCase(
             UserMapper userMapper,
-            FindUserByEmailUseCase findUserByEmailUseCase,
             UserRepository userRepository) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;

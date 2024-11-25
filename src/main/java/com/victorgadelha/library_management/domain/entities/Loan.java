@@ -34,19 +34,19 @@ public class Loan {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "loan_date")
+    @Column(name = "created_at")
     @NotNull(message = "A data de emprestimo é obrigatória.")
-    LocalDateTime loanDate;
+    LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @Column(name = "return_date")
-    LocalDateTime returnDate;
+    LocalDateTime returnDate = LocalDateTime.now().plusDays(7);
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "O status do empréstimo é obrigatório.")
-    private LoanStatus status;
+    private LoanStatus status = LoanStatus.PENDING;
 
     @ManyToOne
     @NotNull(message = "O livro é obrigatório.")

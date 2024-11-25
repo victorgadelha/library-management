@@ -4,8 +4,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import com.victorgadelha.library_management.domain.enums.BookStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -45,6 +49,10 @@ public class Book {
 
     @NotBlank(message = "O idioma é obrigatório.")
     private String languages;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "O status do livro é obrigatório.")
+    private BookStatus status = BookStatus.AVAILABLE;
 
     @NotNull(message = "A data de criação é obrigatória.")
     @Column(name = "created_at")

@@ -9,6 +9,7 @@ import com.victorgadelha.library_management.domain.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,7 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "O papel do usuário é obrigatório.")
     private UserRole role;
 
     @Column(name = "created_at")
