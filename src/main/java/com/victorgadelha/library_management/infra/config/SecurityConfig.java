@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/**", "users/sign-up").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("SCOPE_ADMIN")
-                        .anyRequest().hasAnyAuthority("SCOPE_ADMIN", "SCOPE_BASIC"))
+                        .anyRequest().hasAnyAuthority("SCOPE_ADMIN", "SCOPE_USER"))
                 .csrf(csrf -> csrf.disable())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
