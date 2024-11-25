@@ -48,7 +48,7 @@ public class BookController {
 
         @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_BASIC')")
         @GetMapping("/books")
-        public ResponseEntity<List<BookDTO>> findAll() {
+        public ResponseEntity<List<BookDTO>> findAllBooks() {
                 var books = this.findAllBooksUseCase.execute();
 
                 return ResponseEntity.status(HttpStatus.OK)
@@ -66,7 +66,7 @@ public class BookController {
 
         @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_BASIC')")
         @GetMapping("/books/{id}")
-        public ResponseEntity<BookDTO> getBookById(@PathVariable UUID id) {
+        public ResponseEntity<BookDTO> findBookByID(@PathVariable UUID id) {
                 var book = this.findBookUseCase.execute(id);
                 var bookDTO = new BookDTO(
                                 id,
@@ -82,7 +82,7 @@ public class BookController {
 
         @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
         @PostMapping("/books")
-        public ResponseEntity<BookDTO> save(@Valid @RequestBody BookDTO body) {
+        public ResponseEntity<BookDTO> saveBook(@Valid @RequestBody BookDTO body) {
                 var book = new Book();
                 book.setIsbn(body.isbn());
                 book.setTitle(body.title());
@@ -105,7 +105,7 @@ public class BookController {
 
         @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
         @PutMapping("/books/{id}")
-        public ResponseEntity<BookDTO> updateBook(
+        public ResponseEntity<BookDTO> updateBookById(
                         @PathVariable UUID id,
                         @Valid @RequestBody BookDTO body) {
 
@@ -129,7 +129,7 @@ public class BookController {
 
         @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
         @DeleteMapping("/books/{id}")
-        public ResponseEntity<Void> deleteBook(@PathVariable UUID id) {
+        public ResponseEntity<Void> deleteBookById(@PathVariable UUID id) {
                 this.deleteBookUseCase.execute(id);
 
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
