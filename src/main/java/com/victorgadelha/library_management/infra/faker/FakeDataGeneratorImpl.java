@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.javafaker.Faker;
 import com.victorgadelha.library_management.domain.entities.Book;
 import com.victorgadelha.library_management.domain.entities.User;
-import com.victorgadelha.library_management.domain.enums.Role;
+import com.victorgadelha.library_management.domain.enums.UserRole;
 import com.victorgadelha.library_management.domain.repositories.UserRepository;
 
 @Service
@@ -53,7 +53,7 @@ public class FakeDataGeneratorImpl implements FakeDataGenerator {
         user.setName(faker.name().fullName());
         user.setEmail("admin@email.com");
         user.setPassword(bCryptPasswordEncoder.encode("Senha@123"));
-        user.setRole(Role.ADMIN);
+        user.setRole(UserRole.ADMIN);
 
         return this.userRepository.save(user);
     }

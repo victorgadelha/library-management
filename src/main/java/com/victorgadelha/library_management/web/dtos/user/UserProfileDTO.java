@@ -6,13 +6,13 @@ import java.util.UUID;
 
 import com.victorgadelha.library_management.domain.entities.Loan;
 import com.victorgadelha.library_management.domain.entities.Reservation;
-import com.victorgadelha.library_management.domain.enums.Role;
+import com.victorgadelha.library_management.domain.enums.UserRole;
 
 public record UserProfileDTO(
         UUID id,
         String name,
         String email,
-        Role role,
+        UserRole role,
         List<Loan> loans,
         List<Reservation> reservations,
         LocalDateTime createdAt,

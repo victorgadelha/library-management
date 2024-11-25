@@ -36,9 +36,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    @GetMapping("/me"   )
-    public ResponseEntity<UserProfileDTO> getUserDetails(@RequestHeader("Authorization") String token) {
-        var user = this.findUserProfileUseCase.execute(token);
+    @GetMapping("/me")
+    public ResponseEntity<UserProfileDTO> getUserDetails(@RequestHeader("Authorization") String authorization) {
+        var user = this.findUserProfileUseCase.execute(authorization);
 
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
