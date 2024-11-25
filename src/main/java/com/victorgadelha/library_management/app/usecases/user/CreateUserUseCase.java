@@ -4,7 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.victorgadelha.library_management.domain.enums.Role;
+import com.victorgadelha.library_management.domain.enums.UserRole;
 import com.victorgadelha.library_management.domain.repositories.UserRepository;
 import com.victorgadelha.library_management.infra.mappers.UserMapper;
 import com.victorgadelha.library_management.web.dtos.user.CreateUserRequestDTO;
@@ -30,7 +30,7 @@ public class CreateUserUseCase {
     public CreateUserResponseDTO execute(CreateUserRequestDTO userDTO) {
         var user = userMapper.toEntity(userDTO);
 
-        user.setRole(Role.USER);
+        user.setRole(UserRole.USER);
         user.setPassword(bCryptPasswordEncoder.encode(userDTO.password()));
         this.userRepository.save(user);
 
