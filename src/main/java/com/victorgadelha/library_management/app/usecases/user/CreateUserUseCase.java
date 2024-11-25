@@ -30,10 +30,9 @@ public class CreateUserUseCase {
     public CreateUserResponseDTO execute(CreateUserRequestDTO userDTO) {
         var user = userMapper.toEntity(userDTO);
 
-        user.setRole(Role.BASIC);
+        user.setRole(Role.USER);
         user.setPassword(bCryptPasswordEncoder.encode(userDTO.password()));
         this.userRepository.save(user);
-        System.out.println(user);
 
         return userMapper.toCreateUserResponseDTO(user);
     }

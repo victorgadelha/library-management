@@ -16,7 +16,7 @@ public class FindUserByEmailUseCase {
         this.userMapper = userMapper;
     }
 
-    private final UserRepository userRepository;
+    private final UserRepository userRepository; 
     private final UserMapper userMapper;
 
     @Transactional(readOnly = true)

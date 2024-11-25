@@ -1,6 +1,7 @@
 package com.victorgadelha.library_management.app.usecases.user;
 
-import java.util.UUID;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,20 +11,22 @@ import com.victorgadelha.library_management.infra.mappers.UserMapper;
 import com.victorgadelha.library_management.web.dtos.user.UserDTO;
 
 @Service
-public class FindUserByIdUseCase {
+public class FindAllUsersUseCase {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public FindUserByIdUseCase(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
+    public FindAllUsersUseCase(UserRepository userRepository, UserMapper userMapper) {
         this.userMapper = userMapper;
+        this.userRepository = userRepository;
     }
 
     @Transactional(readOnly = true)
-    public UserDTO execute(UUID id) {
-        var user = this.userRepository.findById(id);
+    public List<UserDTO> execute() {
 
-        return this.userMapper.toDTO(user.get());
+        return this.userRepository.findAll()
+                .stream()
+                .map(user -> userMapper.toDTO(user))
+                .collect(Collectors.toList());
     }
 }
