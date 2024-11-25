@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
 import com.victorgadelha.library_management.app.usecases.user.FindUserByEmailUseCase;
-import com.victorgadelha.library_management.web.dtos.jwt.JWTLoginResponseDTO;
+import com.victorgadelha.library_management.web.dtos.auth.JWTLoginResponseDTO;
 
 @Service
 public class JWTService {
