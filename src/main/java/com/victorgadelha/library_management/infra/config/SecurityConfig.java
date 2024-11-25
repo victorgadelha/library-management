@@ -39,10 +39,10 @@ public class SecurityConfig {
 
         return http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "users/sign-in").permitAll()
-                        .requestMatchers(HttpMethod.POST, "users/sign-up").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/**", "users/sign-up").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
-                        .anyRequest().authenticated())
+                        .requestMatchers("/admin/**").hasAuthority("SCOPE_ADMIN")
+                        .anyRequest().hasAnyAuthority("SCOPE_ADMIN", "SCOPE_BASIC"))
                 .csrf(csrf -> csrf.disable())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
