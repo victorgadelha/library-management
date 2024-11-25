@@ -14,14 +14,13 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -47,6 +46,7 @@ public class Book {
     @NotBlank(message = "O idioma é obrigatório.")
     private String languages;
 
+    @NotNull(message = "A data de criação é obrigatória.")
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

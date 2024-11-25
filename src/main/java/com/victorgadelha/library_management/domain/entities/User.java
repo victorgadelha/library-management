@@ -4,19 +4,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import com.victorgadelha.library_management.domain.enums.Role;
+import com.victorgadelha.library_management.domain.enums.UserRole;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -32,7 +31,7 @@ public class User {
     private String name;
 
     @NotBlank(message = "O e-mail é obrigatório.")
-    // @Email(message = "O e-mail deve ser válido.")
+    @Email(message = "O e-mail deve ser válido.")
     @Column(unique = true)
     private String email;
 
@@ -42,7 +41,7 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private UserRole role;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

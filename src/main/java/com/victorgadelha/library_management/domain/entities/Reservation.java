@@ -8,12 +8,10 @@ import com.victorgadelha.library_management.domain.enums.ReservationStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -25,18 +23,21 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NotNull(message = "A data de reserva é obrigatória.")
     @Column(name = "reservation_date")
+    @NotNull(message = "A data de reserva é obrigatória.")
     private LocalDate reservationDate;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "A situação da reserva é obrigatória.")
     private ReservationStatus status;
 
     @ManyToOne
+    @NotNull(message = "O livro é obrigatório.")
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
     @ManyToOne
+    @NotNull(message = "O usuário é obrigatório.")
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }
