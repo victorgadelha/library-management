@@ -27,8 +27,7 @@ public class LoanRepositoryImpl implements LoanRepository {
 
     @Override
     public Optional<Loan> findById(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return this.jpaLoanRepository.findById(id);
     }
 
     @Override

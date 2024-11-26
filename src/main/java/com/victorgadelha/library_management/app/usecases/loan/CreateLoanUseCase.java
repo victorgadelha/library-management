@@ -6,7 +6,6 @@ import com.victorgadelha.library_management.app.usecases.book.FindBookByIdUseCas
 import com.victorgadelha.library_management.app.usecases.user.FindUserByIdUseCase;
 import com.victorgadelha.library_management.app.usecases.user.FindUserProfileUseCase;
 import com.victorgadelha.library_management.domain.entities.Loan;
-import com.victorgadelha.library_management.domain.enums.LoanStatus;
 import com.victorgadelha.library_management.domain.repositories.LoanRepository;
 import com.victorgadelha.library_management.infra.mappers.LoanMapper;
 import com.victorgadelha.library_management.infra.mappers.UserMapper;
@@ -37,18 +36,13 @@ public class CreateLoanUseCase {
     }
 
     public LoanDTO execute(CreateLoanRequestDTO createLoanRequestDTO) {
-
-        var user = this.userMapper.toEntity(this.findUserByIdUseCase.execute(createLoanRequestDTO.userId()));
+        var user = this.findUserByIdUseCase.execute(createLoanRequestDTO.userId());
         var book = this.findBookByIdUseCase.execute(createLoanRequestDTO.bookId());
-
+        
         var loan = new Loan();
         loan.setBook(book);
-        loan.setUser(user);
-        loan.setStatus(LoanStatus.PENDING);
-
-        this.loanRepository.save(loan);
-
-        return this.loanMapper.toDTO(loan);
-
+        loan.setUser(userMapper.toEntity(user));
+        
+        return loanMapper.toDTO(this.loanRepository.save(loan));
     }
 }

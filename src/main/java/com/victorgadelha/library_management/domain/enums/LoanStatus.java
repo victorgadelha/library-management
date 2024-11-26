@@ -1,7 +1,8 @@
 package com.victorgadelha.library_management.domain.enums;
 
 public enum LoanStatus {
-    PENDING, 
+    PENDING,
+    APPROVED, 
     RETURNED, 
     OVERDUE;
 }
