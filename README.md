@@ -7,6 +7,7 @@ Uma API RESTful para gerenciar livros, autores, empréstimos e reservas em uma b
 ![Status](https://img.shields.io/badge/status-active-success.svg)  
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)  
 ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)  
+![GitHub last commit](https://img.shields.io/github/last-commit/victorgadelha/library-management)
 
 ---
 
