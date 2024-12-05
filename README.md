@@ -37,7 +37,7 @@ Uma API RESTful para gerenciar livros, autores, empréstimos e reservas em uma b
 
 ## 📜 Descrição
 
-A **LibraryAPI** permite que bibliotecas automatizem o gerenciamento de seu acervo de livros, controle de empréstimos e reservas. Construída usando **Spring Boot** e **H2**, a API foi projetada para ser escalável, segura e fácil de integrar.
+A **LIB+** API Restful permite que bibliotecas automatizem o gerenciamento de seu acervo de livros, controle de empréstimos e reservas. Construída usando **Spring Boot** e **H2**, a API foi projetada para ser escalável, segura e fácil de integrar.
 
 ## 🌟 Recursos
 
