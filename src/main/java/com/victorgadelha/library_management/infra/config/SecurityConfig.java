@@ -29,41 +29,41 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Value("${jwt.public.key}")
-    private RSAPublicKey publicKey;
-    @Value("${jwt.private.key}")
-    private RSAPrivateKey privateKey;
+	@Value("${jwt.public.key}")
+	private RSAPublicKey publicKey;
+	@Value("${jwt.private.key}")
+	private RSAPrivateKey privateKey;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/**", "users/sign-up").permitAll()
-                        .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/admin/**").hasAuthority("SCOPE_ADMIN")
-                        .anyRequest().hasAnyAuthority("SCOPE_ADMIN", "SCOPE_USER"))
-                .csrf(csrf -> csrf.disable())
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
-                .build();
-    }
+		return http
+				.authorizeHttpRequests(authorize -> authorize
+						.requestMatchers(HttpMethod.POST, "/auth/**", "users/sign-up").permitAll()
+						.requestMatchers("/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+						.requestMatchers("/admin/**").hasAuthority("SCOPE_ADMIN")
+						.anyRequest().hasAnyAuthority("SCOPE_ADMIN", "SCOPE_USER"))
+				.csrf(csrf -> csrf.disable())
+				.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
+				.build();
+	}
 
-    @Bean
-    public JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withPublicKey(publicKey).build();
-    }
+	@Bean
+	public JwtDecoder jwtDecoder() {
+		return NimbusJwtDecoder.withPublicKey(publicKey).build();
+	}
 
-    @Bean
-    public JwtEncoder jwtEncoder() {
-        JWK jwk = new RSAKey.Builder(this.publicKey).privateKey(privateKey).build();
-        var jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
-        return new NimbusJwtEncoder(jwks);
-    }
+	@Bean
+	public JwtEncoder jwtEncoder() {
+		JWK jwk = new RSAKey.Builder(this.publicKey).privateKey(privateKey).build();
+		var jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
+		return new NimbusJwtEncoder(jwks);
+	}
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
