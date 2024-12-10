@@ -13,38 +13,37 @@ import com.victorgadelha.library_management.infra.repositories.JpaLoanRepository
 @Component
 public class LoanRepositoryImpl implements LoanRepository {
 
-    private final JpaLoanRepository jpaLoanRepository;
+	private final JpaLoanRepository jpaLoanRepository;
 
-    public LoanRepositoryImpl(JpaLoanRepository jpaLoanRepository) {
-        this.jpaLoanRepository = jpaLoanRepository;
-    }
+	public LoanRepositoryImpl(JpaLoanRepository jpaLoanRepository) {
+		this.jpaLoanRepository = jpaLoanRepository;
+	}
 
-    @Override
-    public List<Loan> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-    }
+	@Override
+	public List<Loan> findAll() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+	}
 
-    @Override
-    public Optional<Loan> findById(UUID id) {
-        return this.jpaLoanRepository.findById(id);
-    }
+	@Override
+	public Optional<Loan> findById(UUID id) {
+		return this.jpaLoanRepository.findById(id);
+	}
 
-    @Override
-    public Loan save(Loan loan) {
-        return this.jpaLoanRepository.save(loan);
-    }
+	@Override
+	public Loan save(Loan loan) {
+		return this.jpaLoanRepository.save(loan);
+	}
 
-    @Override
-    public Loan updateById(Loan loan) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateById'");
-    }
+	@Override
+	public Loan updateById(Loan loan) {
+		return this.jpaLoanRepository.save(loan);
+	}
 
-    @Override
-    public void deleteById(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
-    }
+	@Override
+	public void deleteById(UUID id) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+	}
 
 }
