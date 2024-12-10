@@ -39,7 +39,7 @@ public class SecurityConfig {
 
 		return http
 				.authorizeHttpRequests(authorize -> authorize
-						.requestMatchers(HttpMethod.POST, "/auth/**", "users/sign-up").permitAll()
+						.requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
 						.requestMatchers("/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
 						.requestMatchers("/admin/**").hasAuthority("SCOPE_ADMIN")
 						.anyRequest().hasAnyAuthority("SCOPE_ADMIN", "SCOPE_USER"))

@@ -19,27 +19,20 @@ import com.victorgadelha.library_management.web.dtos.user.UserProfileDTO;
 @RequestMapping("/users")
 public class UserController {
 
-    private final CreateUserUseCase createUserUseCase;
-    private final FindUserProfileUseCase findUserProfileUseCase;
+	private final CreateUserUseCase createUserUseCase;
+	private final FindUserProfileUseCase findUserProfileUseCase;
 
-    public UserController(
-            CreateUserUseCase createUserUseCase,
-            FindUserProfileUseCase findUserProfileUseCase) {
-        this.createUserUseCase = createUserUseCase;
-        this.findUserProfileUseCase = findUserProfileUseCase;
-    }
+	public UserController(
+			CreateUserUseCase createUserUseCase,
+			FindUserProfileUseCase findUserProfileUseCase) {
+		this.createUserUseCase = createUserUseCase;
+		this.findUserProfileUseCase = findUserProfileUseCase;
+	}
 
-    @PostMapping("/sign-up")
-    public ResponseEntity<CreateUserResponseDTO> createUser(@RequestBody CreateUserRequestDTO userDTO) {
-        var user = this.createUserUseCase.execute(userDTO);
+	@GetMapping("/me")
+	public ResponseEntity<UserProfileDTO> getUserDetails(@RequestHeader("Authorization") String authorization) {
+		var user = this.findUserProfileUseCase.execute(authorization);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
-    }
-
-    @GetMapping("/me")
-    public ResponseEntity<UserProfileDTO> getUserDetails(@RequestHeader("Authorization") String authorization) {
-        var user = this.findUserProfileUseCase.execute(authorization);
-
-        return ResponseEntity.status(HttpStatus.OK).body(user);
-    }
+		return ResponseEntity.status(HttpStatus.OK).body(user);
+	}
 }
